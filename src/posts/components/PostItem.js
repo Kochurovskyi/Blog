@@ -7,6 +7,7 @@ import "./PostItem.css";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import { API_URL } from "../../api";
 
 function PostItem({ id, image, title, description, tag, blogID, onDelete }) {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -47,11 +48,9 @@ function PostItem({ id, image, title, description, tag, blogID, onDelete }) {
 
   async function confirmDeleteHandler() {
     setShowConfirmModal(false);
+    console.log(`${API_URL}/api/posts/${blogID}/${id}`);
     try {
-      await sendRequest(
-        `http://localhost:8080/api/posts/${blogID}/${id}`,
-        "DELETE"
-      );
+      await sendRequest(`${API_URL}/api/posts/${blogID}/${id}`, "DELETE");
       onDelete(id); // Call the onDelete prop with the post id
     } catch (err) {}
   }

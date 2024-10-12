@@ -4,6 +4,7 @@ import PostList from "../components/PostList";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { API_URL } from "../../api";
 
 function BlogPosts() {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -15,7 +16,7 @@ function BlogPosts() {
     async function fetchPosts() {
       try {
         const responseData = await sendRequest(
-          `http://localhost:8080/api/posts/blog/${blogID}`
+          `${API_URL}/api/posts/blog/${blogID}`
         );
         setLoadedPosts(responseData.posts);
       } catch (err) {

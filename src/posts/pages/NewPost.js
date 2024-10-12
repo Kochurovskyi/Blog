@@ -11,7 +11,7 @@ import {
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import { BlogContext } from "../../shared/contex/blog-context";
-
+import { API_URL } from "../../api";
 import "./NewPost.css";
 
 function base64ToBlob(base64, contentType) {
@@ -85,7 +85,7 @@ function NewPost() {
     setTranslateError(null);
 
     try {
-      const response = await fetch("http://localhost:8080/api/predict", {
+      const response = await fetch(`${API_URL}/api/predict`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,7 +114,7 @@ function NewPost() {
 
       try {
         // Call the translation API endpoint
-        const response = await fetch("http://localhost:8080/api/translate", {
+        const response = await fetch(`${API_URL}/api/translate`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -218,7 +218,7 @@ function NewPost() {
     if (!formState.isValid) return;
     setIsTranslating(true); // Додаємо спінер перед початком генерації
     try {
-      const response = await fetch("http://localhost:8080/api/generate-image", {
+      const response = await fetch(`${API_URL}/api/generate-image`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -264,7 +264,7 @@ function NewPost() {
     }
 
     try {
-      await sendRequest("http://localhost:8080/api/posts", "POST", formData);
+      await sendRequest(`${API_URL}/api/posts`, "POST", formData);
       navigate(`/${formState.inputs.blog.value}/posts`);
     } catch (err) {
       console.log(err);

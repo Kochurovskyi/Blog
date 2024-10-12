@@ -14,6 +14,7 @@ import {
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import { AuthContext } from "../../shared/contex/auth-context";
+import { API_URL } from "../../api";
 
 function Auth() {
   const auth = useContext(AuthContext);
@@ -29,10 +30,9 @@ function Auth() {
 
   async function authSubmitHandler(event) {
     event.preventDefault();
-    // console.log("AUTH FORM STATE:", formState.inputs);
     try {
       setIsLoading(true);
-      const responce = await fetch("http://localhost:8080/api/users/login", {
+      const responce = await fetch(`${API_URL}/api/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -41,7 +41,9 @@ function Auth() {
         }),
       });
       const responceData = await responce.json();
+
       if (!responce.ok) {
+        console.log(responceData);
         throw new Error(responceData.message);
       }
       auth.login();

@@ -13,6 +13,7 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import { API_URL } from "../../api";
 
 function UpdatePost() {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -47,7 +48,7 @@ function UpdatePost() {
     async function fetchPost() {
       try {
         const responseData = await sendRequest(
-          `http://localhost:8080/api/posts/${bid}/${pid}`
+          `${API_URL}/api/posts/${bid}/${pid}`
         );
         setLoadedPost(responseData.post);
         setFormData(
@@ -87,7 +88,7 @@ function UpdatePost() {
     setTranslateError(null);
 
     try {
-      const response = await fetch("http://localhost:8080/api/predict", {
+      const response = await fetch(`${API_URL}/api/predict`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,7 +118,7 @@ function UpdatePost() {
 
       try {
         // Call the translation API endpoint
-        const response = await fetch("http://localhost:8080/api/translate", {
+        const response = await fetch(`${API_URL}/api/translate`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -251,7 +252,7 @@ function UpdatePost() {
 
     try {
       await sendRequest(
-        `http://localhost:8080/api/posts/${bid}/${pid}`,
+        `${API_URL}/api/posts/${bid}/${pid}`,
         "PATCH",
         formData
       );
