@@ -1,0 +1,133 @@
+.post-item {
+  margin: 2rem 0;
+}
+
+.post-item h2 {
+  text-align: left;
+  color: #085875;
+}
+
+.post-item h3 {
+  text-align: left;
+  color: #085875;
+}
+
+.post-list p {
+  text-align: left;
+  color: #383838;
+}
+
+.post-item___content {
+  border-radius: 12px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch; /* Adjust this to align items vertically as needed */
+}
+
+.post-item___image {
+  flex: 0 1 auto; /* flex-grow, flex-shrink, flex-basis */
+  justify-content: center;
+  align-items: center;
+  padding-right: 1rem;
+  width: 360px; /* Fixed width of the container */
+  height: 360px; /* Fixed height of the container */
+  overflow: hidden; /* Hide parts of the image that go beyond the container */
+}
+
+.post-item___image img {
+  width: auto; /* Automatic width to maintain aspect ratio */
+  height: 100%; /* Image height fills the container */
+  object-fit: cover; /* Crop the image to fill the container */
+  min-width: 100%; /* Minimum width of the image to be no less than the container */
+}
+
+.post-item___info {
+  text-align: center;
+  flex: 0 1 75%;
+  padding-left: 1rem;
+}
+
+.post-item___info h2,
+.post-item___info h3,
+.post-item___info p {
+  margin: 0.5rem 0.5rem 1rem 0.5rem; /* Top, right, bottom, left margin */
+}
+
+.post-item___info h3 {
+  background-color: #007bff; /* Example: a nice shade of blue */
+  color: #ffffff; /* White text color */
+  padding: 0.25rem 0.5rem; /* Top and bottom padding, left and right padding */
+  border-radius: 0.25rem; /* Rounded corners */
+  display: inline-block; /* Treat the h3 tag like an inline element with block properties */
+}
+
+.post-item___title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Optional: Aligns items vertically in the center if they have different heights */
+}
+.post-item___actions {
+  flex: 0 1 auto; /* Adjust the percentage based on your design */
+  display: flex;
+  justify-content: flex-start; /* This will space out your buttons evenly */
+  align-items: center; /* Center the buttons vertically */
+  flex-direction: row; /* Ensure buttons are in a row */
+  text-align: center;
+  padding: 1rem 0; /* Add padding for spacing */
+}
+
+.indented-paragraph {
+  text-indent: 2em; /* Adjust the value as needed */
+  margin-bottom: 1em; /* Space between paragraphs */
+}
+
+.post-item__modal-content {
+  padding: 0;
+}
+
+.post-item__modal-actions {
+  text-align: right;
+}
+
+.post-item___actions button,
+.post-item___actions a {
+  margin: 0.5rem;
+}
+
+.show-more-button {
+  background-color: #007bff; /* Example: a nice shade of blue */
+  color: #ffffff; /* White text color */
+  padding: 0.25rem 0.5rem; /* Top and bottom padding, left and right padding */
+  border-radius: 0.25rem; /* Rounded corners */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-top: 1rem; /* Space above the button */
+}
+
+/* Adjustments for desktop screens */
+@media (max-width: 740px) {
+  .post-item___content {
+    flex-direction: column;
+  }
+  .post-item___image {
+    width: auto;
+    height: auto;
+    padding-right: 0;
+  }
+  .post-item___actions {
+    flex-direction: row;
+    padding-right: 0;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+  }
+}
+
+@media (min-width: 740px) {
+  .post-item___content {
+    align-items: center; /* Align items vertically center */
+  }
+}

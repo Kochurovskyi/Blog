@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Courier+Prime:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* font-family: "Courier Prime", monospace; */
+  font-family: "Special Elite", cursive;
+  background: #69bee0;
+  color: #2e2e2e; /* Darker text for better readability */
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Special Elite", cursive;
+  text-align: center;
+  color: #b6d8e4;
+}
+
+.slide-in-left-enter {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-in-left-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 500ms ease-out, opacity 500ms ease-out;
+}
+
+.slide-in-left-exit {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.slide-in-left-exit-active {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 500ms ease-in, opacity 500ms ease-in;
+}
+
+a {
+  color: #b6d8e4;
+  text-decoration: none;
+  transition: color 200ms;
+}
+
+a:hover {
+  color: #383838;
+}
+
+button {
+  /* background-color: #ff4081; */
+  /* background-color: #17abe0; */
+  background-color: #17e05a;
+  color: #b6d8e4;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  transition: background-color 200ms;
+}
+
+button:hover {
+  /* background-color: #ff0055; */
+  background-color: #17abe0;
+  /* background-color: #17e05a; */
+}

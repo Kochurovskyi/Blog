@@ -1,0 +1,14 @@
+.post-form {
+  list-style: none;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 90vw;
+  /* width: 150%; */
+  /* max-width: 120px; */
+  /* transform: translateX(-50%); */
+  max-width: 140rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  background: #69bee0;
+  margin: auto;
+}

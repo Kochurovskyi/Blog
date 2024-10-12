@@ -1,0 +1,81 @@
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-links li {
+  margin: 1rem;
+}
+
+.nav-links a {
+  border: 1px solid transparent;
+  color: #b6d8e4;
+  text-decoration: none;
+  padding: 0.5rem;
+  display: inline-block;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  border-radius: 10px; /* Adds rounded borders with a radius of 10px */
+}
+
+.nav-links a:hover,
+.nav-links a:active,
+.nav-links a.active {
+  background: #17abe0;
+  color: #383838;
+  transform: scale(1.1);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links button:hover,
+.nav-links button:active {
+  background: #17abe0;
+  color: #383838;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.nav-links button:focus {
+  outline: none;
+}
+
+.nav-links button:hover,
+.nav-links button:active {
+  background: #b6d8e4; /* Updated to match the design schema */
+  color: #383838;
+}
+
+@media (min-width: 768px) {
+  .nav-links {
+    flex-direction: row;
+  }
+
+  .nav-links li {
+    margin: 0 0.5rem;
+  }
+
+  .nav-links a {
+    color: #b6d8e4; /* Updated to match the design schema */
+    text-decoration: none;
+  }
+
+  .nav-links button {
+    border: 1px solid #b6d8e4; /* Updated to match the design schema */
+    color: #b6d8e4; /* Updated to match the design schema */
+    background: transparent;
+  }
+
+  .nav-links button:hover,
+  .nav-links button:active {
+    background: #17abe0; /* Updated to match button hover color in design schema */
+    color: #383838;
+  }
+}

@@ -1,0 +1,65 @@
+.button {
+  font: inherit;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #085875; /* Updated for a darker theme */
+  border-radius: 10px;
+  background: #085875; /* Darker background for the button */
+  color: white; /* Changed text color for better contrast */
+  cursor: pointer;
+  margin-right: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(8, 88, 117, 0.5); /* Highlight with a shadow */
+}
+
+.button:hover,
+.button:active {
+  background: #0a6b8d; /* Slightly lighter shade for hover effect */
+  color: white;
+  transform: scale(1.1);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.button--inverse {
+  background: transparent;
+  color: #0a6b8d; /* Updated to match the design schema */
+}
+
+.button--inverse:hover,
+.button--inverse:active {
+  color: #292929; /* Dark color for text on hover for contrast */
+  background: #17abe0; /* More vibrant background color for hover */
+}
+
+.button--danger {
+  background: #830000;
+  border-color: #830000;
+}
+
+.button--danger:hover,
+.button--danger:active {
+  background: #f34343;
+  border-color: #f34343;
+}
+
+.button:disabled,
+.button:hover:disabled,
+.button:active:disabled {
+  background: #ccc;
+  color: #979797;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button--small {
+  font-size: 0.8rem;
+}
+
+.button--big {
+  font-size: 1.5rem;
+}
