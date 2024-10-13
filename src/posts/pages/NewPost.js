@@ -14,36 +14,6 @@ import { BlogContext } from "../../shared/contex/blog-context";
 import { API_URL } from "../../api";
 import "./NewPost.css";
 
-// function isValidBase64(str) {
-//   try {
-//     return btoa(atob(str)) === str;
-//   } catch (err) {
-//     console.error(err);
-//     return false;
-//   }
-// }
-
-// function base64ToBlob(base64, contentType) {
-//   if (!isValidBase64(base64)) {
-//     throw new Error("Invalid base64 string");
-//   }
-
-//   const byteCharacters = atob(base64);
-//   const byteArrays = [];
-
-//   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-//     const slice = byteCharacters.slice(offset, offset + 512);
-//     const byteNumbers = new Array(slice.length);
-//     for (let i = 0; i < slice.length; i++) {
-//       byteNumbers[i] = slice.charCodeAt(i);
-//     }
-//     const byteArray = new Uint8Array(byteNumbers);
-//     byteArrays.push(byteArray);
-//   }
-
-//   return new Blob(byteArrays, { type: contentType });
-// }
-
 function NewPost() {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm({
@@ -123,10 +93,9 @@ function NewPost() {
 
   useEffect(() => {
     const translateText = async () => {
-      if (fbText === "") return; // Skip if fbText is empty
+      if (fbText === "") return;
 
       try {
-        // Call the translation API endpoint
         const response = await fetch(`${API_URL}/api/translate`, {
           method: "POST",
           headers: {
@@ -183,7 +152,6 @@ function NewPost() {
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
 
-          // Зменшення зображення
           const scale = Math.max(512 / img.width, 512 / img.height);
           const scaledWidth = img.width * scale;
           const scaledHeight = img.height * scale;
@@ -192,7 +160,6 @@ function NewPost() {
           canvas.height = scaledHeight;
           ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight);
 
-          // Обрізання зображення
           const cropCanvas = document.createElement("canvas");
           const cropCtx = cropCanvas.getContext("2d");
           cropCanvas.width = 512;
@@ -216,7 +183,7 @@ function NewPost() {
   async function genImageHandler(event) {
     event.preventDefault();
     if (!formState.isValid) return;
-    setIsTranslating(true); // Додаємо спінер перед початком генерації
+    setIsTranslating(true);
     try {
       const response = await fetch(`${API_URL}/api/generate-image`, {
         method: "POST",
@@ -232,46 +199,33 @@ function NewPost() {
         throw new Error("Failed to generate image from the model");
       }
       const data = await response.json();
-      // Extract the base64 string from the data
       const base64Image = data.imageBase64;
-      // Decode the base64 string to binary data
       const byteCharacters = atob(base64Image);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
       const byteArray = new Uint8Array(byteNumbers);
-      // Create a Blob from the binary data
       const imageBlob = new Blob([byteArray], { type: "image/jpeg" });
-      // Log the Blob's size and type
       console.log(
         `Blob {size: ${imageBlob.size / 1024}, type: '${imageBlob.type}'}`
       );
-      // Create an Image object and load the Blob URL
       const img = new Image();
       const url = URL.createObjectURL(imageBlob);
 
       img.onload = () => {
-        // Create a canvas element
         const canvas = document.createElement("canvas");
         canvas.width = 512;
         canvas.height = 512;
-
-        // Draw the image onto the canvas
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, 512, 512);
-
-        // Convert the canvas content to a Blob
         canvas.toBlob((resizedBlob) => {
-          // Log the size of the resized image in MB
           const sizeInMB = resizedBlob.size / (1024 * 1024);
           console.log(
             `Resized Blob {size: ${sizeInMB.toFixed(2)} MB, type: '${
               resizedBlob.type
             }'}`
           );
-
-          // Set the resized image Blob
           setSelectedImage(resizedBlob);
           URL.revokeObjectURL(url);
         }, "image/jpeg");
@@ -279,14 +233,6 @@ function NewPost() {
 
       img.src = url;
       setSelectedImage(imageBlob);
-      // setDynamicImageSrc(`data:image/png;base64,${data.imageBase64}`);
-      // const base64Image = dynamicImageSrc.split(",")[1];
-      // // const imageBlob = base64ToBlob(base64Image, "image/png");
-
-      // const fetchResponse = await fetch(`data:image/png;base64,${base64Image}`);
-      // const imageBlob = await fetchResponse.blob();
-      // console.log(`Image size: ${imageBlob.size / 1024} KB`);
-      // setSelectedImage(imageBlob);
     } catch (err) {
       console.error(err.message);
     } finally {
@@ -311,10 +257,6 @@ function NewPost() {
     if (selectedImage) {
       formData.append("image", selectedImage, "image.jpg");
     }
-    // } else if (dynamicImageSrc.startsWith("data:image/png;base64,")) {
-    //   formData.append("image", selectedImage, "image.png");
-    // }
-
     try {
       await sendRequest(`${API_URL}/api/posts`, "POST", formData);
       navigate(`/${formState.inputs.blog.value}/posts`);
@@ -403,7 +345,7 @@ function NewPost() {
             id="fb_text"
             placeholder="FB text"
             value={fbText}
-            onChange={(e) => setFbText(e.target.value)} //
+            onChange={(e) => setFbText(e.target.value)}
           ></textarea>
           <textarea
             id="translation"
