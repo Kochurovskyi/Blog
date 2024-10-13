@@ -2,14 +2,15 @@ const { Translate } = require("@google-cloud/translate").v2;
 const HttpError = require("../model/http-error");
 
 // Creates a client
-const translate = new Translate();
+const translate = new Translate({
+  keyFilename: "rm-gcp-bsa-dev-7fd4fb996dae.json",
+});
 
 async function translateText(req, res, next) {
   const { text } = req.body;
   const target = "en";
 
   try {
-    // Translates the text into the target language
     let [translations] = await translate.translate(text, target);
     translations = Array.isArray(translations) ? translations : [translations];
 

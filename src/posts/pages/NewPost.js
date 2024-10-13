@@ -14,22 +14,35 @@ import { BlogContext } from "../../shared/contex/blog-context";
 import { API_URL } from "../../api";
 import "./NewPost.css";
 
-function base64ToBlob(base64, contentType) {
-  const byteCharacters = atob(base64);
-  const byteArrays = [];
+// function isValidBase64(str) {
+//   try {
+//     return btoa(atob(str)) === str;
+//   } catch (err) {
+//     console.error(err);
+//     return false;
+//   }
+// }
 
-  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-    const slice = byteCharacters.slice(offset, offset + 512);
-    const byteNumbers = new Array(slice.length);
-    for (let i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    byteArrays.push(byteArray);
-  }
+// function base64ToBlob(base64, contentType) {
+//   if (!isValidBase64(base64)) {
+//     throw new Error("Invalid base64 string");
+//   }
 
-  return new Blob(byteArrays, { type: contentType });
-}
+//   const byteCharacters = atob(base64);
+//   const byteArrays = [];
+
+//   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+//     const slice = byteCharacters.slice(offset, offset + 512);
+//     const byteNumbers = new Array(slice.length);
+//     for (let i = 0; i < slice.length; i++) {
+//       byteNumbers[i] = slice.charCodeAt(i);
+//     }
+//     const byteArray = new Uint8Array(byteNumbers);
+//     byteArrays.push(byteArray);
+//   }
+
+//   return new Blob(byteArrays, { type: contentType });
+// }
 
 function NewPost() {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -59,7 +72,7 @@ function NewPost() {
   const [fbText, setFbText] = useState("");
   const [translation, setTranslation] = useState("");
   const [dynamicImageSrc, setDynamicImageSrc] = useState(
-    "https://picsum.photos/id/568/1024/1024"
+    "https://picsum.photos/id/568/512/512"
   );
 
   const [isTranslating, setIsTranslating] = useState(false);
@@ -127,18 +140,15 @@ function NewPost() {
         if (!response.ok) {
           throw new Error("Failed to fetch translation from the API");
         }
-
         const data = await response.json();
-        console.log(data);
         const translatedText = data.translations[0];
-
         setTranslation(translatedText);
       } catch (err) {
         setTranslateError(err.message);
         console.error(err.message);
       } finally {
         setIsTranslating(false);
-        setDynamicImageSrc("https://picsum.photos/id/478/1024/1024");
+        setDynamicImageSrc("https://picsum.photos/id/478/512/512");
       }
     };
 
@@ -174,7 +184,7 @@ function NewPost() {
           const ctx = canvas.getContext("2d");
 
           // Зменшення зображення
-          const scale = Math.max(1024 / img.width, 1024 / img.height);
+          const scale = Math.max(512 / img.width, 512 / img.height);
           const scaledWidth = img.width * scale;
           const scaledHeight = img.height * scale;
 
@@ -185,23 +195,13 @@ function NewPost() {
           // Обрізання зображення
           const cropCanvas = document.createElement("canvas");
           const cropCtx = cropCanvas.getContext("2d");
-          cropCanvas.width = 1024;
-          cropCanvas.height = 1024;
+          cropCanvas.width = 512;
+          cropCanvas.height = 512;
 
           const startX = 0;
-          const startY = scaledHeight - 1024;
+          const startY = scaledHeight - 512;
 
-          cropCtx.drawImage(
-            canvas,
-            startX,
-            startY,
-            1024,
-            1024,
-            0,
-            0,
-            1024,
-            1024
-          );
+          cropCtx.drawImage(canvas, startX, startY, 512, 512, 0, 0, 512, 512);
 
           cropCanvas.toBlob((blob) => {
             setSelectedImage(blob);
@@ -224,7 +224,6 @@ function NewPost() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // prompt: fbText,
           prompt: translation,
         }),
       });
@@ -233,7 +232,61 @@ function NewPost() {
         throw new Error("Failed to generate image from the model");
       }
       const data = await response.json();
-      setDynamicImageSrc(`data:image/png;base64,${data.imageBase64}`);
+      // Extract the base64 string from the data
+      const base64Image = data.imageBase64;
+      // Decode the base64 string to binary data
+      const byteCharacters = atob(base64Image);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      // Create a Blob from the binary data
+      const imageBlob = new Blob([byteArray], { type: "image/jpeg" });
+      // Log the Blob's size and type
+      console.log(
+        `Blob {size: ${imageBlob.size / 1024}, type: '${imageBlob.type}'}`
+      );
+      // Create an Image object and load the Blob URL
+      const img = new Image();
+      const url = URL.createObjectURL(imageBlob);
+
+      img.onload = () => {
+        // Create a canvas element
+        const canvas = document.createElement("canvas");
+        canvas.width = 512;
+        canvas.height = 512;
+
+        // Draw the image onto the canvas
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, 512, 512);
+
+        // Convert the canvas content to a Blob
+        canvas.toBlob((resizedBlob) => {
+          // Log the size of the resized image in MB
+          const sizeInMB = resizedBlob.size / (1024 * 1024);
+          console.log(
+            `Resized Blob {size: ${sizeInMB.toFixed(2)} MB, type: '${
+              resizedBlob.type
+            }'}`
+          );
+
+          // Set the resized image Blob
+          setSelectedImage(resizedBlob);
+          URL.revokeObjectURL(url);
+        }, "image/jpeg");
+      };
+
+      img.src = url;
+      setSelectedImage(imageBlob);
+      // setDynamicImageSrc(`data:image/png;base64,${data.imageBase64}`);
+      // const base64Image = dynamicImageSrc.split(",")[1];
+      // // const imageBlob = base64ToBlob(base64Image, "image/png");
+
+      // const fetchResponse = await fetch(`data:image/png;base64,${base64Image}`);
+      // const imageBlob = await fetchResponse.blob();
+      // console.log(`Image size: ${imageBlob.size / 1024} KB`);
+      // setSelectedImage(imageBlob);
     } catch (err) {
       console.error(err.message);
     } finally {
@@ -257,11 +310,10 @@ function NewPost() {
 
     if (selectedImage) {
       formData.append("image", selectedImage, "image.jpg");
-    } else if (dynamicImageSrc.startsWith("data:image/png;base64,")) {
-      const base64Image = dynamicImageSrc.split(",")[1];
-      const imageBlob = base64ToBlob(base64Image, "image/png");
-      formData.append("image", imageBlob, "image.png");
     }
+    // } else if (dynamicImageSrc.startsWith("data:image/png;base64,")) {
+    //   formData.append("image", selectedImage, "image.png");
+    // }
 
     try {
       await sendRequest(`${API_URL}/api/posts`, "POST", formData);

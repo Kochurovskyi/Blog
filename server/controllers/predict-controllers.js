@@ -10,6 +10,7 @@
 const { PredictionServiceClient } = require("@google-cloud/aiplatform").v1;
 const { helpers } = require("@google-cloud/aiplatform");
 const HttpError = require("../model/http-error");
+const { GoogleAuth } = require("google-auth-library");
 
 const PROJECT_ID = "rm-gcp-bsa-dev";
 const LOCATION = "us-central1";
@@ -18,8 +19,10 @@ const PUBLISHER = "google";
 const clientOptions = {
   apiEndpoint: "us-central1-aiplatform.googleapis.com",
 };
-
-const predictionServiceClient = new PredictionServiceClient(clientOptions);
+const auth = new GoogleAuth({
+  keyFile: "rm-gcp-bsa-dev-7fd4fb996dae.json",
+  scopes: "https://www.googleapis.com/auth/cloud-platform",
+});
 
 async function predict(req, res, next) {
   const { title, pre_prompt } = req.body;
@@ -28,6 +31,10 @@ async function predict(req, res, next) {
   const prompt = `${task} ${pre_prompt}`;
   const modelId = "text-bison@002";
   try {
+    const client = new PredictionServiceClient({
+      ...clientOptions,
+      auth,
+    });
     const endpoint = `projects/${PROJECT_ID}/locations/${LOCATION}/publishers/${PUBLISHER}/models/${modelId}`;
     const instanceValue = helpers.toValue({ prompt });
     const instances = [instanceValue];
@@ -44,7 +51,7 @@ async function predict(req, res, next) {
       parameters,
     };
 
-    const [response] = await predictionServiceClient.predict(request);
+    const [response] = await client.predict(request);
 
     const predictions = response.predictions.map((prediction) => ({
       content: prediction.structValue.fields.content.stringValue,

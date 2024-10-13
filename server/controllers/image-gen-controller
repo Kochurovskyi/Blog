@@ -1,21 +1,24 @@
 const { PredictionServiceClient } = require("@google-cloud/aiplatform").v1;
 const { helpers } = require("@google-cloud/aiplatform");
-// const fs = require("fs");
-// const util = require("util");
 const HttpError = require("../model/http-error");
+const { GoogleAuth } = require("google-auth-library");
+
+const auth = new GoogleAuth({
+  keyFile: "rm-gcp-bsa-dev-7fd4fb996dae.json",
+  scopes: "https://www.googleapis.com/auth/cloud-platform",
+});
 
 const projectId = process.env.CAIP_PROJECT_ID;
 const location = "us-central1";
 
 const clientOptions = {
   apiEndpoint: `${location}-aiplatform.googleapis.com`,
+  auth,
 };
-
 const predictionServiceClient = new PredictionServiceClient(clientOptions);
 
 async function generateImage(req, res, next) {
   const { prompt } = req.body;
-  // console.log("prompt: ", prompt);
 
   const endpoint = `projects/${projectId}/locations/${location}/publishers/google/models/imagen-3.0-generate-001`;
 
@@ -26,8 +29,6 @@ async function generateImage(req, res, next) {
   const parameter = {
     sampleCount: 1,
     aspectRatio: "1:1",
-    width: 1024,
-    height: 1024,
     safetyFilterLevel: "block_some",
     personGeneration: "allow_adult",
   };
