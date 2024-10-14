@@ -42,7 +42,7 @@ function NewPost() {
   const [fbText, setFbText] = useState("");
   const [translation, setTranslation] = useState("");
   const [dynamicImageSrc, setDynamicImageSrc] = useState(
-    "https://picsum.photos/id/568/512/512"
+    "https://picsum.photos/id/568/720/720"
   );
 
   const [isTranslating, setIsTranslating] = useState(false);
@@ -117,7 +117,7 @@ function NewPost() {
         console.error(err.message);
       } finally {
         setIsTranslating(false);
-        setDynamicImageSrc("https://picsum.photos/id/478/512/512");
+        setDynamicImageSrc("https://picsum.photos/id/478/720/720");
       }
     };
 
@@ -152,7 +152,7 @@ function NewPost() {
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
 
-          const scale = Math.max(512 / img.width, 512 / img.height);
+          const scale = Math.max(720 / img.width, 720 / img.height);
           const scaledWidth = img.width * scale;
           const scaledHeight = img.height * scale;
 
@@ -162,13 +162,13 @@ function NewPost() {
 
           const cropCanvas = document.createElement("canvas");
           const cropCtx = cropCanvas.getContext("2d");
-          cropCanvas.width = 512;
-          cropCanvas.height = 512;
+          cropCanvas.width = 720;
+          cropCanvas.height = 720;
 
           const startX = 0;
-          const startY = scaledHeight - 512;
+          const startY = scaledHeight - 720;
 
-          cropCtx.drawImage(canvas, startX, startY, 512, 512, 0, 0, 512, 512);
+          cropCtx.drawImage(canvas, startX, startY, 720, 720, 0, 0, 720, 720);
 
           cropCanvas.toBlob((blob) => {
             setSelectedImage(blob);
@@ -215,10 +215,10 @@ function NewPost() {
 
       img.onload = () => {
         const canvas = document.createElement("canvas");
-        canvas.width = 512;
-        canvas.height = 512;
+        canvas.width = 720;
+        canvas.height = 720;
         const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, 512, 512);
+        ctx.drawImage(img, 0, 0, 720, 720);
         canvas.toBlob((resizedBlob) => {
           const sizeInMB = resizedBlob.size / (1024 * 1024);
           console.log(
