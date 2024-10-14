@@ -25,4 +25,4 @@ The project is deployed on AWS services to ensure high availability and scalabil
 - **AWS Elastic Beanstalk**: For deploying and managing applications.
 - **Amazon DynamoDB**: For managing the database.
 
-![AWS Architecture](https://github.com/Kochurovskyi/Blog/blob/main/misc/aws_arch.png)
+![AWS Architecture](https://github.com/Kochurovskyi/blog/blob/main/misc/AWS_arch.png)
