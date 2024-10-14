@@ -32,15 +32,15 @@ The project is deployed on AWS services to ensure high availability and scalabil
 - **AWS Elastic Beanstalk**: For deploying and managing applications.
 - **Amazon DynamoDB**: For managing the database.
 
-![AWS Architecture](https://github.com/Kochurovskyi/Blog/blob/main/misc/AWS_architecture.png)
+![AWS Architecture](https://github.com/Kochurovskyi/Blog/blob/main/misc/AWS_arch.png)
 
 ## Improvements
 
-1. **[<<BUG>>] Responsive Width (because of IMG)**
-2. **[<<IMPR>>] Dual language (Ukr-Eng)**
-3. **[<<SEC>>] Protection**
-4. **[<<IMPR>>] TAG filtering**
-5. **[<<IMPR>>] Pagination**
-6. **[<<IMPR>>] Posts quantity on blog cart**
-7. **[<<BUG>>] Favicon**
-8. **[<<IMPR>>] C Kochurovskyi Yurii**
+1. **[<<'BUG'>>] Responsive Width (because of IMG)**
+2. **[<<'IMPR'>>] Dual language (Ukr-Eng)**
+3. **[<<'SEC'>>] Protection**
+4. **[<<'IMPR'>>] TAG filtering**
+5. **[<<'IMPR'>>] Pagination**
+6. **[<<'IMPR'>>] Posts quantity on blog cart**
+7. **[<<'BUG'>>] Favicon**
+8. **[<<'IMPR'>>] C Kochurovskyi Yurii**
