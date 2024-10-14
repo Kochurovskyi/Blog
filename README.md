@@ -2,6 +2,8 @@
 
 This application is a private blog about sports and Turkish culture from a foreigner's perspective. The blog covers various topics, and more topics can be added over time. The application provides users with an intuitive interface to interact with various features such as creating, reading, updating, and deleting (CRUD) data. The user interface is designed using React, ensuring a fast and interactive experience.
 
+Go ahead and try: https://d1671q2yuok4n6.cloudfront.net/
+
 ## Screenshots
 
 ![Screenshot 1](https://github.com/Kochurovskyi/Blog/blob/main/misc/Screenshot_1.png)
@@ -34,11 +36,11 @@ The project is deployed on AWS services to ensure high availability and scalabil
 
 ## Improvements
 
-1. **<<BUG>> Responsive Width (because of IMG)**
-2. **<<IMPR>> Dual language (Ukr-Eng)**
-3. **<<SEC>> Protection**
-4. **<<IMPR>> TAG filtering**
-5. **<<IMPR>> Pagination**
-6. **<<IMPR>> Posts quantity on blog cart**
-7. **<<BUG>> Favicon**
-8. **<<IMPR>> C Kochurovskyi Yurii**
+1. **[<<BUG>>] Responsive Width (because of IMG)**
+2. **[<<IMPR>>] Dual language (Ukr-Eng)**
+3. **[<<SEC>>] Protection**
+4. **[<<IMPR>>] TAG filtering**
+5. **[<<IMPR>>] Pagination**
+6. **[<<IMPR>>] Posts quantity on blog cart**
+7. **[<<BUG>>] Favicon**
+8. **[<<IMPR>>] C Kochurovskyi Yurii**
