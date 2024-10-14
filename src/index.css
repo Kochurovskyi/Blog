@@ -6,7 +6,7 @@
 
 html {
   /* font-family: "Courier Prime", monospace; */
-  font-family: "Special Elite", cursive;
+  font-family: "Special Elite", "Open Sans", sans-serif;
   background: #69bee0;
   color: #2e2e2e; /* Darker text for better readability */
 }
@@ -25,7 +25,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: "Special Elite", cursive;
+  font-family: "Special Elite", "Open Sans", sans-serif;
   text-align: center;
   color: #b6d8e4;
 }
