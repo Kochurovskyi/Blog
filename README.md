@@ -44,3 +44,4 @@ The project is deployed on AWS services to ensure high availability and scalabil
 6. **[<<'IMPR'>>] Posts quantity on blog cart**
 7. **[<<'BUG'>>] Favicon**
 8. **[<<'IMPR'>>] C Kochurovskyi Yurii**
+9. **[<<'IMPR'>>] AWS Codepipline**
