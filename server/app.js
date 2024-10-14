@@ -8,6 +8,7 @@ const translateRoutes = require("./routes/translate-routes");
 const HttpError = require("./model/http-error");
 const cors = require("cors");
 const generateImage = require("./controllers/image-gen-controller");
+const sslCertRoutes = require("./routes/ssl_cert_routes");
 
 const app = express();
 app.use(cors());
@@ -30,6 +31,7 @@ app.use("/api", predictRoutes);
 app.use("/api", translateRoutes);
 app.post("/api/generate-image", generateImage);
 app.use("/static", express.static("static"));
+app.use("/", sslCertRoutes); // Add this line
 
 app.use((req, res, next) => {
   const error = new HttpError("Could Not Find this route", 404);
