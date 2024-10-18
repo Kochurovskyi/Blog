@@ -1,6 +1,6 @@
 ## General Description
 
-This application is a private blog about sports and Turkish culture from a foreigner's perspective. The blog covers various topics, and more topics can be added over time. The application provides users with an intuitive interface to interact with various features such as creating, reading, updating, and deleting (CRUD) data. The user interface is designed using React, ensuring a fast and interactive experience.
+This application is a private blog about sports and Turkish culture from a foreigner's perspective. The blog covers these two topics only, but more topics can be added over time. The application provides users with an intuitive interface to interact with various features such as creating, reading, updating, and deleting (CRUD) data, besides that AI will generate nice text base on your article, will add emojis)) If you don't have a good photo for you post - not a problem, it will generate an image accordingly. The user interface is designed using React, ensuring a fast and interactive experience.
 
 Go ahead and try: https://d1671q2yuok4n6.cloudfront.net/
 
@@ -21,6 +21,10 @@ The project is built using the MERN stack, which includes the following technolo
 ## Artificial Intelligence Integration
 
 This project leverages artificial intelligence to enhance the user experience. We have integrated AI models for nice text edition and translation to English, and using the generated English version to create descriptive images. This makes the application more intelligent and fun.
+All model are Google Vertex AI:
+- **Text generation PaLM2**
+- **Translation AI**
+- **ImeGen v3** 
 
 ## Deployment on AWS Services
 
@@ -45,3 +49,4 @@ The project is deployed on AWS services to ensure high availability and scalabil
 7. **[<<'BUG'>>] Favicon**
 8. **[<<'IMPR'>>] C Kochurovskyi Yurii**
 9. **[<<'IMPR'>>] AWS Codepipline**
+10. **[<<'IMPR'>>] text formatting - breaks**

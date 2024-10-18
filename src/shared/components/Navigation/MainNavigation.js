@@ -37,7 +37,7 @@ function MainNavigation(props) {
           <span />
         </button>
         <h1 className="main-navigation__title">
-          <Link to="/">Yuko Blog</Link>
+          <Link to="/">Yuko Blogs</Link>
         </h1>
         <nav className="main-navigation__header-nav">
           <NavLinks />
